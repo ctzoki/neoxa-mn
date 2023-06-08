@@ -80,8 +80,12 @@ Final state
 #### 2.4. Add additional IPs
 Head over to the Networking menu, click on the main interface that is online, usually named eno1/eth1, click edit on the IPV4 settings, now a new popup will appear where you can enter all the additional IPs that you have for running masternodes
 
+![network](https://github.com/ctzoki/neoxa-mn/assets/129646348/567ca22b-c752-4343-ba4e-f304ad975b7d)
+
 #### 2.5. Enable Podman
 Head over to the Podman menu, enable the podman service and enable starting on boot, here we will be starting all the nodes as described in the next section.
+
+![podman](https://github.com/ctzoki/neoxa-mn/assets/129646348/1c33d31a-fb03-43de-bc75-1d8cab63dcb7)
 
 ## 3 Running MN Containers in Podman
 -- Instructions will be updated during testnet --
