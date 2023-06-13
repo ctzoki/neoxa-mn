@@ -88,4 +88,35 @@ Head over to the Podman menu, enable the podman service, here we will be startin
 ![podman](https://github.com/ctzoki/neoxa-mn/assets/129646348/1c33d31a-fb03-43de-bc75-1d8cab63dcb7)
 
 ## 3 Running MN Containers in Podman
--- Instructions will be updated during testnet --
+
+#### 3.1 Preparing your collateral and registering your masternode
+Head over to your neoxa-qt wallet and open the debug console, 4 commands need to be executed to register the masternode
+
+    getnewaddress
+
+It will output a new address with 0 balance, use it for the next command
+
+    sendtoaddress "{your-new-address-here}" {number-of-coins}
+
+You are sending coins to the new address, for testnet use 60000.0 for mainnet use 1000000.0, the output will be the transaction id, take note of it
+
+    smartnode outputs
+
+This will list the transactions which outputs match MN requirements, find the one that matches the previoulsy noted, and take note of the sequecence appearing next to it, i.e. 0 or 1
+![Screenshot from 2023-06-13 11-00-41](https://github.com/ctzoki/neoxa-mn/assets/129646348/b03dac72-3898-4891-9124-a23cb7ac3d96)
+
+    listaddressgroupings
+
+This command will output all your wallet addresses, find one with a few neox balance to be used as fee for the next transaction, !DO NOT USE THE ONE WHERE YOU DEPOSITED COLLATERAL AMOUNT!
+![Screenshot from 2023-06-13 11-01-28](https://github.com/ctzoki/neoxa-mn/assets/129646348/43b1d7a5-13bd-4fc0-8889-24361f7ddd49)
+
+
+    protx quick_setup {your-tx-id} {output-sequence} {your-ip}:{your-port} {your-fee-address}
+
+Substitute all the parameters here with your actual values
+![Screenshot from 2023-06-13 11-04-59](https://github.com/ctzoki/neoxa-mn/assets/129646348/5ff1b252-aadb-44b3-a008-45db6471bebe)
+
+Thats all of the commands, the last one outputs your configuration you can copy it from the console or from a file it generates which should look similar to the image below, copy the file we will need it on the server
+![Screenshot from 2023-06-13 11-08-09](https://github.com/ctzoki/neoxa-mn/assets/129646348/841731a5-26dc-4700-94c2-506c1a9bc0aa)
+
+
