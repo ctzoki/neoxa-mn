@@ -116,7 +116,7 @@ This command will output all your wallet addresses, find one with a few neox bal
 Substitute all the parameters here with your actual values
 ![Screenshot from 2023-06-13 11-04-59](https://github.com/ctzoki/neoxa-mn/assets/129646348/5ff1b252-aadb-44b3-a008-45db6471bebe)
 
-Thats all of the commands, the last one outputs your configuration you can copy it from the console or from a file it generates which should look similar to the image below, copy the file we will need it on the server
+Thats all of the commands, the last one outputs the path to your configuration file, the file it generates should look similar to the image below, copy the file contents we will need it on the server
 ![Screenshot from 2023-06-13 11-08-09](https://github.com/ctzoki/neoxa-mn/assets/129646348/841731a5-26dc-4700-94c2-506c1a9bc0aa)
 
 
