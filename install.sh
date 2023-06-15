@@ -1,7 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Enable EPEL repository
-dnf install epel-release -y
+dnf install -y epel-release
 
 # Update the OS
 dnf update -y
@@ -16,7 +18,7 @@ dnf install -y fail2ban fail2ban-systemd
 systemctl enable --now firewalld
 
 # Add a new user
-if [ $# -ne 2 ]; then
+if [[ $# -ne 2 ]]; then
     echo "Please provide the username and password for the new user."
     exit 1
 fi
@@ -24,33 +26,39 @@ fi
 USERNAME=$1
 PASSWORD=$2
 
-useradd -m -s /bin/bash $USERNAME
-echo "$PASSWORD" | passwd --stdin $USERNAME
-usermod -aG wheel $USERNAME
+useradd -m -s /bin/bash "$USERNAME"
+echo "$USERNAME:$PASSWORD" | chpasswd
+usermod -aG wheel "$USERNAME"
 
 # Enable SSH monitoring in Fail2Ban
-touch /etc/fail2ban/jail.d/sshd.local
-echo -e "[sshd]\nenabled = true\nport = ssh\nlogpath = %(sshd_log)s\nbackend = %(sshd_backend)s\nmaxretry = 3\nbantime = 1h" > /etc/fail2ban/jail.d/sshd.local
+cat << EOF > /etc/fail2ban/jail.d/sshd.local
+[sshd]
+enabled = true
+port = ssh
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+maxretry = 3
+bantime = 1h
+EOF
 
 # Restart Fail2Ban
 systemctl enable --now fail2ban
 systemctl restart fail2ban
 
 # Enable Cockpit
-dnf install cockpit -y
-systemctl start cockpit
-systemctl enable cockpit
+dnf install -y cockpit
 systemctl enable --now cockpit.socket
 firewall-cmd --permanent --add-service=cockpit
 firewall-cmd --reload
 
 # Install Podman and Podman Cockpit
 dnf install -y podman cockpit-podman
-systemctl start podman
-systemctl enable podman
+systemctl enable --now podman
 
-# Enable selinux and reboot
-sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config 
-grubby --update-kernel=ALL --args="enforcing=1" 
-grubby --update-kernel=ALL --remove-args selinux
+# Enable SELinux
+sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config
+grubby --update-kernel=ALL --args="enforcing=1"
+grubby --update-kernel=ALL --remove-args=selinux
+
+# Reboot the system
 reboot now
