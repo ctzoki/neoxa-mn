@@ -130,7 +130,7 @@ Then we need to inform selinux that the folder will be used by a container not t
 
     sudo chcon -R -t container_file_t {masternode_folder}
 
-In the last step we will enter our config, the text editor is vim, you can lookup a tutorial how to use it, in short it relies on specific key presses as commands, when you first enter it, it's in ready only mode, press "i" to enter edit mode, then paste your config and when you are done you need to press "escape", ":", "x", "enter" to save the edit, make sure what you enter is the same as in the generated config, no extra spaces, no empty lines, no missing content
+In the last step we will enter our config, the text editor is vim, you can lookup a tutorial how to use it, in short it relies on specific key presses as commands, when you first enter it, it's in read only mode, press "i" to enter edit mode, then paste your config and when you are done you need to press "escape", ":", "x", "enter" to save the edit, make sure what you enter is the same as in the generated config, no extra spaces, no empty lines, no missing content
 
     vim {masternode_folder}/neoxa.conf
 
