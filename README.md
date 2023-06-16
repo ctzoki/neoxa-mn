@@ -107,7 +107,7 @@ This will list the transactions which outputs match MN requirements, find the on
 
     listaddressgroupings
 
-This command will output all your wallet addresses, find one with a few neox balance to be used as fee for the next transaction, !DO NOT USE THE ONE WHERE YOU DEPOSITED COLLATERAL AMOUNT!
+This command will output all your wallet addresses, find one with a few neox balance to be used as fee for the next transaction, **!DO NOT USE THE ONE WHERE YOU DEPOSITED COLLATERAL AMOUNT!**
 ![Screenshot from 2023-06-13 11-01-28](https://github.com/ctzoki/neoxa-mn/assets/129646348/43b1d7a5-13bd-4fc0-8889-24361f7ddd49)
 
 
@@ -116,7 +116,30 @@ This command will output all your wallet addresses, find one with a few neox bal
 Substitute all the parameters here with your actual values
 ![Screenshot from 2023-06-13 11-04-59](https://github.com/ctzoki/neoxa-mn/assets/129646348/5ff1b252-aadb-44b3-a008-45db6471bebe)
 
-Thats all of the commands, the last one outputs the path to your configuration file, the file it generates should look similar to the image below, copy the file contents we will need it on the server
+Thats all of the commands, the last one outputs the path to your configuration file, the file it generates should look similar to the image below, copy the file contents we will need it on the server.
 ![Screenshot from 2023-06-13 11-08-09](https://github.com/ctzoki/neoxa-mn/assets/129646348/841731a5-26dc-4700-94c2-506c1a9bc0aa)
+
+#### 3.2 Setting up the config on the server
+From the copied config file in 3.1 we need to **remove daemon=1**, daemons don't work well in container context, we want the process with id 1 to be the main one and keep it that way, then we need to setup a folder structure on our server for keeping our nodes, use a naming scheme that will make your nodes easier to find which one is which, for example you can name them after the last 3 digits of your ip.
+
+Switch to the Terminal menu and execute the following commands {masternode_folder} being the name of your folder.. i.e. node-201
+
+    mkdir {masternode_folder}
+
+Then we need to inform selinux that the folder will be used by a container not to block write access to it, the following command will also ask you for your password as it has to run with sudo
+
+    sudo chcon -R -t container_file_t {masternode_folder}
+
+In the last step we will enter our config, the text editor is vim, you can lookup a tutorial how to use it, in short it relies on specific key presses as commands, when you first enter it, it's in ready only mode, press "i" to enter edit mode, then paste your config and when you are done you need to press "escape", ":", "x", "enter" to save the edit, make sure what you enter is the same as in the generated config, no extra spaces, no empty lines, no missing content
+
+    vim {masternode_folder}/neoxa.conf
+
+#### 3.3 Creating your pod and your container
+--TBD--
+
+
+
+
+
 
 
