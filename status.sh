@@ -2,7 +2,7 @@
 
 # Check if the script is running with sudo
 if [ "$EUID" -ne 0 ]; then
-    echo "Please run this script with sudo."
+    echo "Please run this script with sudo." >&2  # Redirected to stderr
     exit 1
 fi
 
@@ -11,7 +11,7 @@ CONTAINER_INFO=$(podman ps --format "{{.ID}}:{{.Names}}" | grep "node")
 
 # Check if any containers match the criteria
 if [ -z "$CONTAINER_INFO" ]; then
-    echo "No containers found matching the criteria."
+    echo "No containers found matching the criteria." >&2  # Redirected to stderr
     exit 1
 fi
 
