@@ -51,8 +51,9 @@ systemctl enable --now cockpit.socket
 firewall-cmd --permanent --add-service=cockpit
 firewall-cmd --reload
 
-# Install Podman and Podman Cockpit
+# Install Podman and Podman Cockpit and Cockpit Navigator
 dnf install -y podman cockpit-podman
+dnf install https://github.com/45Drives/cockpit-navigator/releases/download/v0.5.8/cockpit-navigator-0.5.8-1.el8.noarch.rpm
 systemctl enable --now podman
 
 # Enable SELinux
