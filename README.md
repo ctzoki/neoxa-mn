@@ -142,6 +142,10 @@ As a last step we need to setup correct permissions for the container to use the
 Now all the files and permissions are in place to run the containers
 
 #### 3.3 Creating your pod and your container
+Head over to the podman menu and click on create pod, enter your details taking care to enter your correct host path volume, i.e. /opt/testnet/node-x and map it to /var/lib/neoxa, also make sure to enter your correct IP and Port
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/377f0e0b-ad0b-4569-8ae1-00a106ec7d1a)
+
+
 --TBD--
 
 
