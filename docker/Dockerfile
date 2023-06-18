@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
-# Create a non-root user
-RUN adduser --disabled-password --gecos '' neoxa
+# Create a non-root user with specific UID and GID
+RUN addgroup --gid 5196 neoxa && adduser --disabled-password --gecos '' --uid 5196 --gid 5196 neoxa
 
 # Set the working directory and copy the neoxad binary
 WORKDIR /app
@@ -27,4 +27,4 @@ USER neoxa
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Set the command to execute
-CMD ["/app/neoxad", "-datadir=/var/lib/neoxa", "-printtoconsole", "-onlynet=ipv4", "-testnet=1"]
+CMD ["/app/neoxad", "-datadir=/var/lib/neoxa", "-printtoconsole", "-onlynet=ipv4"]
