@@ -120,19 +120,26 @@ Thats all of the commands, the last one outputs the path to your configuration f
 ![Screenshot from 2023-06-13 11-08-09](https://github.com/ctzoki/neoxa-mn/assets/129646348/841731a5-26dc-4700-94c2-506c1a9bc0aa)
 
 #### 3.2 Setting up the config on the server
-From the copied config file in 3.1 we need to **remove daemon=1**, daemons don't work well in container context, we want the process with id 1 to be the main one and keep it that way, then we need to setup a folder structure on our server for keeping our nodes, use a naming scheme that will make your nodes easier to find which one is which, for example you can name them after the last 3 digits of your ip.
+Open the Navigator and navigate to the /opt folder, here we will create the directories for our containers, i suggest creating first folders "testnet" and "mainnet" to have nice structure on your server, then in the testnet or mainnet folder create folders for your nodes, i.e. node-1, node-2, node-x
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/866088ef-c697-40c6-baf7-9c1a00cc81a4)
 
-Switch to the Terminal menu and execute the following commands {masternode_folder} being the name of your folder.. i.e. node-201
+Inside of your node-x folder we will need to create the neoxa.conf file
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/7d6e4940-9936-4892-adb7-c9ac3d8dc322)
 
-    mkdir {masternode_folder}
+Then edit it by double clicking it to enter your generated neoxa.conf, **ADD testnet=1 AT THE END OF THE CONFIG IF YOU WANT TESTNET**
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/820fc8f3-aab4-42fc-840f-7d7ddc84b963)
 
-Then we need to inform selinux that the folder will be used by a container not to block write access to it, the following command will also ask you for your password as it has to run with sudo
+As a last step we need to setup correct permissions for the container to use the directory, the following commands need to run
 
-    sudo chcon -R -t container_file_t {masternode_folder}
+    sudo chmod 700 {your-directory-path}
 
-In the last step we will enter our config, the text editor is vim, you can lookup a tutorial how to use it, in short it relies on specific key presses as commands, when you first enter it, it's in read only mode, press "i" to enter edit mode, then paste your config and when you are done you need to press "escape", ":", "x", "enter" to save the edit, make sure what you enter is the same as in the generated config, no extra spaces, no empty lines, no missing content
+    sudo chown -R 5196:5196 {your-directory-path}
 
-    vim {masternode_folder}/neoxa.conf
+    sudo chcon -R -t container_file_t {your-directory-path}
+
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/c6a0ab2b-7f82-4fde-a42f-0e46fc69bab9)
+
+Now all the files and permissions are in place to run the containers
 
 #### 3.3 Creating your pod and your container
 --TBD--
