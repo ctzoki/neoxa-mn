@@ -6,6 +6,10 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# Get the current date and hour
+CURRENT_DATE=$(date +"%Y-%m-%d")
+CURRENT_HOUR=$(date +"%H:%M:%S")
+
 # Execute the command and store the output in a variable
 CONTAINER_INFO=$(podman ps --format "{{.ID}}:{{.Names}}:{{.Image}}" | grep "node")
 
@@ -27,7 +31,7 @@ HTML_CONTENT="<!DOCTYPE html>
 <body>
   <div class='container'>
     <br/>
-    <h1>Smartnode Status</h1>
+    <h3>Smartnode Status - $CURRENT_DATE $CURRENT_HOUR</h3>
     <br/>"
 
 # Loop through each container info and execute the desired command
