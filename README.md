@@ -131,7 +131,7 @@ Then edit it by double clicking it to enter your generated neoxa.conf, **ADD tes
 
 As a last step we need to setup correct permissions for the container to use the directory, the following commands need to run
 
-    sudo chmod 700 {your-directory-path}
+    sudo chmod 755 {your-directory-path}
 
     sudo chown -R 5196:5196 {your-directory-path}
 
