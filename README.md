@@ -161,7 +161,8 @@ A status page is available and can be installed by running the following command
 
 The smartnode status will appear as Red if there is penalty to your node, Gray if other issue is found and Green if all ok, image below for demonstration
 
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/0bd844c8-150a-45a3-a186-61be2b421b5d)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/56f06b3b-6019-44d9-b453-37e62c96381a)
+
 
 
     
