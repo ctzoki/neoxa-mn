@@ -9,7 +9,7 @@ dnf install -y epel-release
 dnf update -y
 
 # Install packages
-dnf install -y vim htop tree net-tools
+dnf install -y vim htop tree net-tools zip unzip
 
 # Install fail2ban from the EPEL repository
 dnf install -y fail2ban fail2ban-systemd
