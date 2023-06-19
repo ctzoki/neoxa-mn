@@ -15,10 +15,10 @@ fi
 cd "$TARGET_DIR" || exit 1
 
 # Download and overwrite the files from the "smartnode-status" folder in the GitHub repository
-FOLDER_URL="$REPO_URL/tree/main/smartnode-status"
+FOLDER_URL="$REPO_URL/raw/main/smartnode-status"
 files=("bootstrap.bundle.min.js" "bootstrap.min.css" "custom.css" "manifest.json" "smartnode-status.html" "smartnode-status.sh")
 for file in "${files[@]}"; do
-    wget -q -O "$file" "$FOLDER_URL/$file"
+    wget -q --no-clobber "$FOLDER_URL/$file"
 done
 
 # Add cron job to run the script every minute if it doesn't exist
