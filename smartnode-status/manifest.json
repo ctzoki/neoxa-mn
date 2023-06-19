@@ -1,0 +1,9 @@
+{
+    "version": 0.1,
+    "tools": {
+        "smartnode-status": {
+            "label": "Smartnode Status",
+            "path": "smartnode-status.html"
+        }
+    }
+}
