@@ -11,12 +11,12 @@ else
     echo "Directory $NEOXA_DIR has the correct ownership (neoxa:neoxa)."
 fi
 
-if [[ $(stat -c %a "$NEOXA_DIR") != "700" ]]; then
-    echo "ERROR: Incorrect permissions for directory $NEOXA_DIR. It should have permissions set to 700." >&2
+if [[ $(stat -c %a "$NEOXA_DIR") != "755" ]]; then
+    echo "ERROR: Incorrect permissions for directory $NEOXA_DIR. It should have permissions set to 755." >&2
     sleep 60
     exit 1
 else
-    echo "Directory $NEOXA_DIR has the correct permissions (700)."
+    echo "Directory $NEOXA_DIR has the correct permissions (755)."
 fi
 
 # Check SELinux context for the directory itself
