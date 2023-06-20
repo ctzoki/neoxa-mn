@@ -103,21 +103,20 @@ You are sending coins to the new address, for testnet use 60000.0 for mainnet us
     smartnode outputs
 
 This will list the transactions which outputs match MN requirements, find the one that matches the previoulsy noted, and take note of the sequecence appearing next to it, i.e. 0 or 1
-![Screenshot from 2023-06-13 11-00-41](https://github.com/ctzoki/neoxa-mn/assets/129646348/b03dac72-3898-4891-9124-a23cb7ac3d96)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/64472eb1-6a03-4545-a8c3-be9e936bbd04)
 
     listaddressgroupings
 
 This command will output all your wallet addresses, find one with a few neox balance to be used as fee for the next transaction, **!DO NOT USE THE ONE WHERE YOU DEPOSITED COLLATERAL AMOUNT!**
-![Screenshot from 2023-06-13 11-01-28](https://github.com/ctzoki/neoxa-mn/assets/129646348/43b1d7a5-13bd-4fc0-8889-24361f7ddd49)
-
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/959362cc-0aa1-4cff-bdb3-71cc66ec96c8)
 
     protx quick_setup {your-tx-id} {output-sequence} {your-ip}:{your-port} {your-fee-address}
 
 Substitute all the parameters here with your actual values
-![Screenshot from 2023-06-13 11-04-59](https://github.com/ctzoki/neoxa-mn/assets/129646348/5ff1b252-aadb-44b3-a008-45db6471bebe)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/db2d3076-543f-40f7-a706-dd52e73e73d3)
 
 Thats all of the commands, the last one outputs the path to your configuration file, the file it generates should look similar to the image below, copy the file contents we will need it on the server.
-![Screenshot from 2023-06-13 11-08-09](https://github.com/ctzoki/neoxa-mn/assets/129646348/841731a5-26dc-4700-94c2-506c1a9bc0aa)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/18ead970-74c3-480d-9d8d-82ded8cca784)
 
 #### 3.2 Setting up the config on the server
 Open the Navigator and navigate to the /opt folder, here we will create the directories for our containers, i suggest creating first folders "testnet" and "mainnet" to have nice structure on your server, then in the testnet or mainnet folder create folders for your nodes, i.e. node-1, node-2, node-x
