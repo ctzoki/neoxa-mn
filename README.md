@@ -136,20 +136,23 @@ As a last step we need to setup correct permissions for the container to use the
 
     sudo chcon -R -t container_file_t {your-directory-path}
 
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/c6a0ab2b-7f82-4fde-a42f-0e46fc69bab9)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/0fe84d30-cc9b-4e46-b5d0-a8a50acf26ee)
 
 Now all the files and permissions are in place to run the containers
 
 #### 3.3 Creating your pod and your container
 Head over to the podman menu and click on create pod, enter your details taking care to enter your correct host path volume, i.e. /opt/testnet/node-x and map it to /var/lib/neoxa, also make sure to enter your correct IP and Port
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/377f0e0b-ad0b-4569-8ae1-00a106ec7d1a)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/afac9d3b-4640-41ad-bc8a-c5628cb91dea)
 
+Then click on "Create container in pod" in the pod that you just created, use image **ctzoki/neoxa-full-node** to run your node with, the other parameters are not mandatory but its recommended to set up like in the image below
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/4b94cd6a-b401-4633-96d7-10532ef3968b)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/5b539e59-613f-4bf8-81fa-57fb45ac0c0f)
 
---TBD--
+Double check the integrations tab that everything is mapped as needed
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/b3c9a84e-dedc-4740-aa18-518abed15d04)
 
-**STARTING YOUR POD AFTER OFFICIAL RELEASE**
-
---TBD--
+Check the logs are printing ok, if there is a problem in the config you will notice it in the logs
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/9b0280f6-7e61-4bda-9101-cf39b1d51b9d)
 
 ## 4 Optional
 
