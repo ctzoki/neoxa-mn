@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Instal jq as the status script depends on it
-dnf install -y jq
+dnf install -y jq wget
 
 # Define the GitHub repository URL
 REPO_URL="https://raw.githubusercontent.com/ctzoki/neoxa-mn"
