@@ -157,7 +157,7 @@ Head over to the podman menu and click on create pod, enter your details taking 
 #### 4.1 Smartnode Status Page
 A status page is available and can be installed by running the following command in the terminal
 
-    sudo curl -sSL https://raw.githubusercontent.com/ctzoki/neoxa-mn/main/install-smartnode-status.sh | bash
+    sudo curl -sSL https://raw.githubusercontent.com/ctzoki/neoxa-mn/main/install-smartnode-status.sh | sudo bash
 
 The smartnode status will appear as Red if there is penalty to your node, Gray if other issue is found and Green if all ok, image below for demonstration
 
