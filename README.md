@@ -120,13 +120,13 @@ Thats all of the commands, the last one outputs the path to your configuration f
 
 #### 3.2 Setting up the config on the server
 Open the Navigator and navigate to the /opt folder, here we will create the directories for our containers, i suggest creating first folders "testnet" and "mainnet" to have nice structure on your server, then in the testnet or mainnet folder create folders for your nodes, i.e. node-1, node-2, node-x
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/866088ef-c697-40c6-baf7-9c1a00cc81a4)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/23d3b5e8-fc79-468e-b1b5-00f10179cbcc)
 
 Inside of your node-x folder we will need to create the neoxa.conf file
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/7d6e4940-9936-4892-adb7-c9ac3d8dc322)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/db9af4c8-6829-49c3-8279-6fc0ee7fa2e9)
 
 Then edit it by double clicking it to enter your generated neoxa.conf, **ADD testnet=1 AT THE END OF THE CONFIG IF YOU WANT TESTNET**
-![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/820fc8f3-aab4-42fc-840f-7d7ddc84b963)
+![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/f4667c37-e343-49d3-ab7c-2832e0a133b1)
 
 As a last step we need to setup correct permissions for the container to use the directory, the following commands need to run
 
