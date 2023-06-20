@@ -11,7 +11,7 @@ CURRENT_DATE=$(date +"%Y-%m-%d")
 CURRENT_HOUR=$(date +"%H:%M:%S")
 
 # Execute the command and store the output in a variable
-CONTAINER_INFO=$(podman ps --format "{{.ID}}:{{.Names}}:{{.Image}}" | grep "node")
+CONTAINER_INFO=$(podman ps --format "{{.ID}}:{{.Names}}:{{.Image}}" | grep "ctzoki/neoxa-full-node")
 
 # Check if any containers match the criteria
 if [ -z "$CONTAINER_INFO" ]; then
