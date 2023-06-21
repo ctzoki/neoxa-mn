@@ -1,0 +1,8 @@
+[Unit]
+Description=NAT reflection service
+
+[Service]
+ExecStart=/usr/local/bin/nat-reflection reload
+
+[Install]
+WantedBy=multi-user.target
