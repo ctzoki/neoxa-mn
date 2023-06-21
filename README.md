@@ -168,7 +168,7 @@ The smartnode status will appear as Red if there is penalty to your node, Gray i
 #### 4.2 NAT Reflection
 If you are running your nodes behind a NAT, i.e. port forwarding from your home router you probably don't have NAT reflection, its the ability to connect to your public IP from within your network, you can install the following tool to help with that 
 
-    sudo curl -sSL https://raw.githubusercontent.com/ctzoki/neoxa-mn/nat-reflection/install-nat-reflection.sh | sudo bash
+    sudo curl -sSL https://raw.githubusercontent.com/ctzoki/neoxa-mn/main/install-nat-reflection.sh | sudo bash
 
 the tool supports 4 commands, add, list, reload, delete, add and delete take in two parameters public ip and private ip, run the add command to enable reflection for an ip
 
