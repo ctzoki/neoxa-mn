@@ -14,8 +14,9 @@ mkdir -p $RULES_PATH
 
 function add_rule() {
   local ip=$1
-  iptables -t nat -I OUTPUT -d $ip -j DNAT --to-destination 127.0.0.1
-  echo $ip >> "$RULES_PATH/rules"
+  local dest=$2
+  iptables -t nat -A PREROUTING -d $ip -j DNAT --to-destination $dest
+  echo "$ip $dest" >> "$RULES_PATH/rules"
 }
 
 function list_rules() {
@@ -24,33 +25,37 @@ function list_rules() {
 
 function delete_rule() {
   local ip=$1
-  iptables -t nat -D OUTPUT -d $ip -j DNAT --to-destination 127.0.0.1
-  sed -i "/$ip/d" "$RULES_PATH/rules"
+  local dest=$2
+  if iptables -t nat -C PREROUTING -d $ip -j DNAT --to-destination $dest >/dev/null 2>&1; then
+    iptables -t nat -D PREROUTING -d $ip -j DNAT --to-destination $dest
+  fi
+  sed -i "/$ip $dest/d" "$RULES_PATH/rules"
 }
 
 function reload_rules() {
-  while IFS= read -r ip; do
-    if iptables -t nat -C OUTPUT -d $ip -j DNAT --to-destination 127.0.0.1 >/dev/null 2>&1; then
-      iptables -t nat -D OUTPUT -d $ip -j DNAT --to-destination 127.0.0.1
+  while IFS=' ' read -r line; do
+    IFS=' ' read -r ip dest <<<"$line"
+    if iptables -t nat -C PREROUTING -d $ip -j DNAT --to-destination $dest >/dev/null 2>&1; then
+      iptables -t nat -D PREROUTING -d $ip -j DNAT --to-destination $dest
     fi
-    iptables -t nat -I OUTPUT -d $ip -j DNAT --to-destination 127.0.0.1
+    iptables -t nat -A PREROUTING -d $ip -j DNAT --to-destination $dest
   done < "$RULES_PATH/rules"
 }
 
 case "$1" in
   add)
-    add_rule $2
+    add_rule $2 $3
     ;;
   list)
     list_rules
     ;;
   delete)
-    delete_rule $2
+    delete_rule $2 $3
     ;;
   reload)
     reload_rules
     ;;
   *)
-    echo "Usage: $0 {add|list|delete|reload} [ip]"
+    echo "Usage: $0 {add|list|delete|reload} [ip] [destination]"
     exit 1
 esac
