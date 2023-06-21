@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Define the GitHub repository URL
-REPO_URL="https://raw.githubusercontent.com/ctzoki/neoxa-mn/nat-reflections/nat-reflection"
+REPO_URL="https://raw.githubusercontent.com/ctzoki/neoxa-mn/nat-reflection/nat-reflection"
 
 # Create necessary directories
 mkdir -p /etc/nat-reflection
