@@ -38,8 +38,18 @@ Open the cockpit web ui using a browser, don't forget to substitute {ip-of-your-
 Click on Limited Access button on the top bar and enter your password again to enable administrative access for your session
 
 ![switch](https://github.com/ctzoki/neoxa-mn/assets/129646348/28c8845d-0daf-4438-979b-469077699b1d)
+
+#### 2.1. Install Navigator
+Head over to Terminal
+Login, and switch to root user using
+
+    sudo su
     
-#### 2.1. Accounts setup
+Install Navigator
+
+    dnf install https://github.com/45Drives/cockpit-navigator/releases/download/v0.5.10/cockpit-navigator-0.5.10-1.el8.noarch.rpm
+
+#### 2.2. Accounts setup
 Head over to the Accounts menu
 - There should be only 2 accounts, the username you provided to the installation script and root user
 - If there are additional accounts, sometimes created by server providers, delete them
@@ -51,7 +61,7 @@ Before
 After
 ![accounts-2](https://github.com/ctzoki/neoxa-mn/assets/129646348/06a2bf36-1cc5-4fea-8405-6b6dceade377)
 
-#### 2.2. Enable metrics collection
+#### 2.3. Enable metrics collection
 Head over to the Overview menu, on the Usage Panel press "View metrics and history", enable the monitoring and collection services, do not enable "Export to network"
 
 Before
@@ -62,7 +72,8 @@ Next Step
 
 It will take some time for data to start showing, check it again later
 
-#### 2.3. Enable automatic updates
+
+#### 2.4. Enable automatic updates
 Head over to the Software Updates menu, install and enable the "Automatic updates" and "Kernel live patching"
 
 Automatic Updates
@@ -77,12 +88,12 @@ Enable kernel live patch
 Final state
 ![software-updates-4](https://github.com/ctzoki/neoxa-mn/assets/129646348/de55737d-c8e2-4c69-b7bd-fd42917bb782)
 
-#### 2.4. Add additional IPs
+#### 2.5. Add additional IPs
 Head over to the Networking menu, click on the main interface that is online, usually named eno1/eth1, click edit on the IPV4 settings, now a new popup will appear where you can enter all the additional IPs that you have for running masternodes
 
 ![network](https://github.com/ctzoki/neoxa-mn/assets/129646348/567ca22b-c752-4343-ba4e-f304ad975b7d)
 
-#### 2.5. Enable Podman
+#### 2.6. Enable Podman
 Head over to the Podman menu, enable the podman service, here we will be starting all the nodes as described in the next section.
 
 ![podman](https://github.com/ctzoki/neoxa-mn/assets/129646348/1c33d31a-fb03-43de-bc75-1d8cab63dcb7)
@@ -188,6 +199,3 @@ Reload, mostly used by the service on startup
 
 Delete a reflection, if you made a mistake or don't need it anymore
 ![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/2682ee61-05af-4048-8e29-2de63bec2534)
-
-
-
