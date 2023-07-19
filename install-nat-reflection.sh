@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]; then
   exit
 fi
 
-# Instal jq as the status script depends on it
+# Install jq as the status script depends on it
 dnf install -y wget
 
 # Define the GitHub repository URL
