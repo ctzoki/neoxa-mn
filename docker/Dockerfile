@@ -6,9 +6,9 @@ RUN addgroup --gid 5196 neoxa && adduser --disabled-password --gecos '' --uid 51
 # Set the working directory and download and unzip Neoxa binaries
 WORKDIR /app
 RUN apt-get update && apt-get upgrade -y && apt-get install -y curl unzip
-RUN curl -LJO https://github.com/NeoxaChain/Neoxa/releases/download/5.1.1.1/neoxa-testnet-linux64.zip \
-    && unzip -j neoxa-testnet-linux64.zip -d /app \
-    && rm neoxa-testnet-linux64.zip
+RUN curl -LJO https://github.com/NeoxaChain/Neoxa/releases/download/v5.1.1.3/neoxad-5.1.1.3-linux64.zip \
+    && unzip -j neoxad-5.1.1.3-linux64.zip -d /app \
+    && rm neoxad-5.1.1.3-linux64.zip
 
 # Copy the entrypoint script
 COPY entrypoint.sh /app/entrypoint.sh
