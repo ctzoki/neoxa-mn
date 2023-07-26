@@ -57,7 +57,7 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
     fi
 
     # Check if the command execution was successful
-    if [ $EXIT_STATUS_SMARTNODE -eq 0 ]; then
+    if [ -n "$EXIT_STATUS_SMARTNODE" ] && [ "$EXIT_STATUS_SMARTNODE" -eq 0 ]; then
         # Extract the value of PoSePenalty from the JSON output using jq
         POSE_PENALTY=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.PoSePenalty')
     
