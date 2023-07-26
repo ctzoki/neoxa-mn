@@ -34,7 +34,7 @@ HTML_CONTENT="<!DOCTYPE html>
     <h3>Smartnode Status - $CURRENT_DATE $CURRENT_HOUR</h3>
     <br/>"
 
-# Loop through each container info and execute the desired command
+# Loop through each container info and execute the desired commands
 while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
     HTML_CONTENT+="<div class='accordion' id='accordion$CONTAINER_ID'>
       <div class='accordion-item'>
@@ -43,13 +43,22 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
             Container: $CONTAINER_NAME"
 
     # Execute the command and capture the output and error
-    OUTPUT=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa smartnode status 2>&1)
-    EXIT_STATUS=$?
+    OUTPUT_NETWORK=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa getnetworkinfo 2>&1)
+    OUTPUT_SMARTNODE=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa smartnode status 2>&1)
+    EXIT_STATUS_NETWORK=$?
+    EXIT_STATUS_SMARTNODE=$?
 
-    # Check if the command execution was successful
-    if [ $EXIT_STATUS -eq 0 ]; then
-        # Extract the value of PoSePenalty from the JSON output using jq
-        POSE_PENALTY=$(echo "$OUTPUT" | jq -r '.dmnState.PoSePenalty')
+    # Check if the command execution was successful and extract the subversion
+    if [ $EXIT_STATUS_NETWORK -eq 0 ]; then
+        SUBVERSION=$(echo "$OUTPUT_NETWORK" | jq -r '.subversion')
+        SUBVERSION=$(echo "$SUBVERSION" | sed 's/\///g') # Remove slashes
+    else
+        SUBVERSION="N/A"
+    fi
+
+    # Check if the command execution was successful and extract the PoSePenalty value
+    if [ $EXIT_STATUS_SMARTNODE -eq 0 ]; then
+        POSE_PENALTY=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.PoSePenalty')
 
         # Check the value of PoSePenalty and determine the icon color
         if [ "$POSE_PENALTY" -eq 0 ]; then
@@ -63,15 +72,15 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
         ICON_COLOR="bg-grey"
     fi
 
-    # Add the container status and icon to the HTML content
-    HTML_CONTENT+="<i class='bi bi-circle-fill $ICON_COLOR'></i>"
+    # Add the subversion and container status icons to the HTML content
+    HTML_CONTENT+=" - Subversion: $SUBVERSION <i class='bi bi-circle-fill $ICON_COLOR'></i>"
 
     HTML_CONTENT+="        </button>
           </h2>
           <div id='collapse$CONTAINER_ID' class='accordion-collapse collapse' aria-labelledby='heading$CONTAINER_ID' data-bs-parent='#accordion$CONTAINER_ID'>
             <div class='accordion-body'>
               <code><pre>"
-    HTML_CONTENT+="$OUTPUT"
+    HTML_CONTENT+="$OUTPUT_SMARTNODE"
     HTML_CONTENT+="</pre></code>
             </div>
           </div>
