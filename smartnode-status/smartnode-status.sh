@@ -57,9 +57,9 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
     fi
 
     # Check if the command execution was successful
-    if [ $EXIT_STATUS -eq 0 ]; then
+    if [ $EXIT_STATUS_SMARTNODE -eq 0 ]; then
         # Extract the value of PoSePenalty from the JSON output using jq
-        POSE_PENALTY=$(echo "$OUTPUT" | jq -r '.dmnState.PoSePenalty')
+        POSE_PENALTY=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.PoSePenalty')
     
         # Check if POSE_PENALTY is not null before performing the comparison
         if [ "$POSE_PENALTY" != "null" ] && [ "$POSE_PENALTY" -eq 0 ]; then
