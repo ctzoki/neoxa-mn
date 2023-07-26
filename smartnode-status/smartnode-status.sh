@@ -56,14 +56,17 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
         SUBVERSION="N/A"
     fi
 
-    # Check if the command execution was successful and extract the PoSePenalty value
-    if [ $EXIT_STATUS_SMARTNODE -eq 0 ]; then
-        POSE_PENALTY=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.PoSePenalty')
-
-        # Check the value of PoSePenalty and determine the icon color
-        if [ "$POSE_PENALTY" -eq 0 ]; then
+    # Check if the command execution was successful
+    if [ $EXIT_STATUS -eq 0 ]; then
+        # Extract the value of PoSePenalty from the JSON output using jq
+        POSE_PENALTY=$(echo "$OUTPUT" | jq -r '.dmnState.PoSePenalty')
+    
+        # Check if POSE_PENALTY is not null before performing the comparison
+        if [ "$POSE_PENALTY" != "null" ] && [ "$POSE_PENALTY" -eq 0 ]; then
+            # Value of PoSePenalty is not null and is equal to 0
             ICON_COLOR="bg-green"
         else
+            # Value of PoSePenalty is either null or not equal to 0
             ICON_COLOR="bg-red"
         fi
     else
