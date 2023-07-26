@@ -21,6 +21,12 @@ cd "$TARGET_DIR" || exit 1
 FOLDER_URL="$REPO_URL/main/smartnode-status"
 files=("bootstrap.bundle.min.js" "bootstrap.min.css" "custom.css" "manifest.json" "smartnode-status.html" "smartnode-status.sh")
 for file in "${files[@]}"; do
+    # Delete existing file if it exists
+    if [ -f "$file" ]; then
+        rm "$file"
+    fi
+
+    # Download the file
     wget -q "$FOLDER_URL/$file"
 done
 
