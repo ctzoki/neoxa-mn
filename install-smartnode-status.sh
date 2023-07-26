@@ -21,7 +21,7 @@ cd "$TARGET_DIR" || exit 1
 FOLDER_URL="$REPO_URL/main/smartnode-status"
 files=("bootstrap.bundle.min.js" "bootstrap.min.css" "custom.css" "manifest.json" "smartnode-status.html" "smartnode-status.sh")
 for file in "${files[@]}"; do
-    wget -q --no-clobber "$FOLDER_URL/$file"
+    wget -q "$FOLDER_URL/$file"
 done
 
 # Make the smartnode-status.sh file executable
