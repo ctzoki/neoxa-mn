@@ -27,6 +27,7 @@ HTML_CONTENT="<!DOCTYPE html>
   <link rel='stylesheet' href='bootstrap.min.css'>
   <link rel='stylesheet' href='custom.css'>
   <script src='bootstrap.bundle.min.js'></script>
+  <script src='auto-reload.js'></script>
 </head>
 <body>
   <div class='container'>
