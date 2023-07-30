@@ -19,7 +19,7 @@ cd "$TARGET_DIR" || exit 1
 
 # Download and overwrite the files from the "smartnode-status" folder in the GitHub repository
 FOLDER_URL="$REPO_URL/main/smartnode-status"
-files=("bootstrap.bundle.min.js" "bootstrap.min.css" "custom.css" "manifest.json" "smartnode-status.html" "smartnode-status.sh")
+files=("bootstrap.bundle.min.js" "bootstrap.min.css" "custom.css" "manifest.json" "smartnode-status.html" "smartnode-status.sh" "auto-reload.js")
 for file in "${files[@]}"; do
     # Delete existing file if it exists
     if [ -f "$file" ]; then
