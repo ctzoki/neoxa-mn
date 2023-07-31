@@ -141,7 +141,7 @@ As a last step we need to setup correct permissions for the container to use the
 Now all the files and permissions are in place to run the containers
 
 #### 3.3 Creating your pod and your container
-Head over to the podman menu and click on create pod, enter your details taking care to enter your correct host path volume, i.e. /opt/testnet/node-x and map it to /var/lib/neoxa, also make sure to enter your correct IP and Port
+Head over to the podman menu and click on create pod, enter your details taking care to enter your correct host path volume, i.e. /opt/testnet/node-x and map it to /var/lib/neoxa, also make sure to enter your correct IP and Port, **for mainnet use port 8788 for both host and container.**
 ![image](https://github.com/ctzoki/neoxa-mn/assets/129646348/afac9d3b-4640-41ad-bc8a-c5628cb91dea)
 
 Then click on "Create container in pod" in the pod that you just created, use image **ctzoki/neoxa-full-node** to run your node with, the other parameters are not mandatory but its recommended to set up like in the image below
