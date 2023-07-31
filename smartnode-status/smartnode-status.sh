@@ -43,6 +43,16 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
           <button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse$CONTAINER_ID' aria-expanded='false' aria-controls='collapse$CONTAINER_ID'>
             Container: $CONTAINER_NAME"
 
+    # Fetch blockchain info
+    OUTPUT_BLOCKCHAININFO=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa getblockchaininfo 2>&1)
+    if [ $? -eq 0 ]; then
+        LAST_SYNCED_BLOCK=$(echo "$OUTPUT_BLOCKCHAININFO" | jq -r '.blocks')
+        LAST_SYNCED_HEADER=$(echo "$OUTPUT_BLOCKCHAININFO" | jq -r '.headers')
+    else
+        LAST_SYNCED_BLOCK="N/A"
+        LAST_SYNCED_HEADER="N/A"
+    fi
+
     # Execute the command and capture the output and error
     OUTPUT_NETWORK=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa getnetworkinfo 2>&1)
     OUTPUT_SMARTNODE=$(podman exec "$CONTAINER_ID" /app/neoxa-cli -datadir=/var/lib/neoxa smartnode status 2>&1)
@@ -62,6 +72,19 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
         # Extract the value of PoSePenalty from the JSON output using jq
         POSE_PENALTY=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.PoSePenalty')
     
+        # Fetch the balance for the payoutAddress
+        PAYOUT_ADDRESS=$(echo "$OUTPUT_SMARTNODE" | jq -r '.dmnState.payoutAddress')
+        BALANCE_RESPONSE=$(curl -s --connect-timeout 5 "https://explorer.neoxa.net/ext/getbalance/${PAYOUT_ADDRESS}")
+
+        # Check if the balance response contains "error" or if it's empty (which could mean a timeout or a server error)
+        if [[ -z "$BALANCE_RESPONSE" ]] || echo "$BALANCE_RESPONSE" | grep -q "error"; then
+                # Balance could not be fetched
+                CURRENT_BALANCE="N/A"
+        else
+                # Balance fetched successfully, format it
+                CURRENT_BALANCE=$(printf "%'.2f" "$BALANCE_RESPONSE")
+        fi
+
         # Check if POSE_PENALTY is not null before performing the comparison
         if [ "$POSE_PENALTY" != "null" ] && [ "$POSE_PENALTY" -eq 0 ]; then
             # Value of PoSePenalty is not null and is equal to 0
@@ -74,10 +97,11 @@ while IFS=: read -r CONTAINER_ID CONTAINER_NAME CONTAINER_IMAGE; do
         # Set default values if the command encountered an error
         POSE_PENALTY="N/A"
         ICON_COLOR="bg-grey"
+        CURRENT_BALANCE="N/A"
     fi
 
     # Add the subversion and container status icons to the HTML content
-    HTML_CONTENT+=" - Subversion: $SUBVERSION <i class='bi bi-circle-fill $ICON_COLOR'></i>"
+    HTML_CONTENT+=" - Version: $SUBVERSION  - Last Header: $LAST_SYNCED_HEADER - Last Block: $LAST_SYNCED_BLOCK - Balance: $CURRENT_BALANCE <i class='bi bi-circle-fill $ICON_COLOR'></i>"
 
     HTML_CONTENT+="        </button>
           </h2>
