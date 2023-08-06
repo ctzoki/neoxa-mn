@@ -1,8 +1,12 @@
 [Unit]
 Description=NAT reflection service
+After=podman.service firewalld.service iptables.service
 
 [Service]
+User=root
 ExecStart=/usr/bin/nat-reflection reload
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
